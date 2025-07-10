@@ -1,8 +1,8 @@
 #include<iostream>
 #include<cstdint> // para que termcolor.hpp funcione
-#include<ctime>
-#include<fstream>
-#include"termcolor.hpp"
+#include<ctime> // fecha y hora
+#include<iomanip> // para hacer cuadros ordenados
+#include"termcolor.hpp" //color
 
 using namespace std;
 using namespace termcolor;
@@ -36,9 +36,9 @@ int menu() { //menu (modularizar)
 
 int main() {
     char rpta;
-    int n, catAa=0, catBb=0, catCc=0, catDd=0;
+    int n, catAa=0, catBb=0, catCc=0, catDd=0, total=0, indice=0;
     int A, B, C, D; //A: PAPELERIA // B: ELECTRONICOS // C:ALIMENTOS // D: LIBROS 
-    string catA[50], catB[50], catC[50], catD[50]; // categorias
+    string catA[50], catB[50], catC[50], catD[50]; // elementos en categorias
     do {
         n=menu();
         system("cls");
@@ -48,60 +48,55 @@ int main() {
             char cat;
             cout<<green<<"*Cuantos tipos de productos quieres ingresar?"<<reset<<endl; cin>>k;
             cout<<endl<<on_yellow<<"Ingrese los productos:"<<reset<<endl;
-            for (int i=0; i<k; i++) { // luego para almacenar en .txt se debe crear variable que almacene el total.
-                PRODUCTOS[i].fecha=fecha_hora(); //halla la fecha y hora exacta
+
+            for (int i=0; i<k; i++) {
+                indice=total;
+                PRODUCTOS[indice].fecha=fecha_hora(); //halla la fecha y hora exacta
                 cout<<"\nCategoria: "<<red<<"Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS"<<endl; cin>>cat;
                 cin.ignore();
                 switch(cat) { //categorias
                     case 'A': case 'a':
-                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[i].nomb);
-                        catA[i]=PRODUCTOS[i].nomb;
+                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[indice].nomb);
+                        catA[catAa]=PRODUCTOS[indice].nomb;
                         catAa++;
                     break;
 
                     case 'B': case 'b':
-                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[i].nomb);
-                        cout<<green<<"\nMarca del producto: "; cin>>PRODUCTOS[i].marca;
-                        catB[i]=PRODUCTOS[i].nomb;
+                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[indice].nomb);
+                        cout<<green<<"\nMarca del producto: "; cin>>PRODUCTOS[indice].marca;
+                        catB[catBb]=PRODUCTOS[indice].nomb;
                         catBb++;
                     break;
 
                     case 'C': case 'c':
-                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[i].nomb);
-                        cout<<green<<"\nTipo de alimento: "; cin>>PRODUCTOS[i].t_alimento;
-                        catC[i]=PRODUCTOS[i].nomb;
+                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[indice].nomb);
+                        cout<<green<<"\nTipo de alimento: "; cin>>PRODUCTOS[indice].t_alimento;
+                        catC[catCc]=PRODUCTOS[indice].nomb;
                         catCc++;
                     break;
 
                     case 'D': case 'd':
-                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[i].nomb);
-                        cout<<green<<"\nAutor: "; getline(cin,PRODUCTOS[i].autor);
-                        cout<<"\nGenero: "; cin>>PRODUCTOS[i].genero;
-                        catD[i]=PRODUCTOS[i].nomb;
+                        cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[indice].nomb);
+                        cout<<green<<"\nAutor: "; getline(cin,PRODUCTOS[indice].autor);
+                        cout<<"\nGenero: "; cin>>PRODUCTOS[indice].genero;
+                        catD[catDd]=PRODUCTOS[indice].nomb;
                         catDd++;
                     break;
                 }
                 //cout<<green<<"Nombre del producto:"; getline(cin,PRODUCTOS[i].nomb); //nombre
-                cout<<green<<"\nPrecio:"; cin>>PRODUCTOS[i].precio;
-                cout<<"\nCantidad:"; cin>>PRODUCTOS[i].cant;
-                cout<<"\nFecha de ingreso: "<<PRODUCTOS[i].fecha;
+                cout<<green<<"\nPrecio:"; cin>>PRODUCTOS[indice].precio;
+                cout<<"\nCantidad:"; cin>>PRODUCTOS[indice].cant;
+                cout<<"\nFecha de ingreso: "<<PRODUCTOS[indice].fecha;
                 if (i==k-1) { //termina el case A en funcion de k=cantidad de productos, si no, lo resetea
                     cout<<reset<<on_blue<<"\nHecho!";
                     system("pause");
-                    cout<<on_green<<"Desea guardar los productos que acaba de ingresar? (S/N): "; cin>>rpta;
-                    if (rpta=='S' || rpta=='s') {
-                        // falta
-                    }
-                    else {
-                        // falta
-                    }
                 }
                 else {
                     cout<<reset<<on_yellow<<"\n==================================="<<reset<<endl;
                 }
-
+                total++;
             }
-
+            
             break;
             case 2: // editar
 
@@ -113,8 +108,24 @@ int main() {
 
             break;
             case 5: // lista de productos
-
-
+                if(total==0) {
+                    cout<<on_red<<"No hay productos registrados."<<reset<<endl;
+                    system("pause");
+                    break;
+                }
+            cout<<left; //menu
+            cout<<setw(5)<<"NUM"
+            <<setw(25)<<"Nombre"
+            <<setw(22)<<"Fecha"
+            <<setw(10)<<"Precio"<<endl;
+            cout<<string(70,'-')<<endl;
+            for(int i=0; i<total; i++) { // ubica productos
+                cout<<setw(5)<<i+1;
+                cout<<setw(25)<<PRODUCTOS[i].nomb;
+                cout<<setw(25)<<PRODUCTOS[i].fecha;
+                cout<<setw(10)<<PRODUCTOS[i].precio<<endl;
+            }
+            system("pause");
             break;
             case 6: // resumen inventario
 

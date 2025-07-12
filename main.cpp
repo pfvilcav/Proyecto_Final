@@ -98,8 +98,54 @@ int main() {
             }
             
             break;
-            case 2: // editar
+            case 2: 
+                int op;
+                cout<<"\nCategoria: "<<red<<"Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS"<<endl; cin>>cat;
+                cin.ignore();
+                switch(cat) { //categorias
+                    case 'A': case 'a':
+                        for(int i=0;i<k;i++){
+                            cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
+                            cout<<"--------------------------------------------------------------------"<<endl;
+                        }
+                        cout<<"Elija el numero del producto: "; cin>>op;
+                        cout<<"Nuevo nombre: "; getline(cin, PRODUCTOS[op].nomb);
+                    break;
 
+                    case 'B': case 'b':
+                        for(int i=0;i<k;i++){
+                            cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
+                            cout<<green<<"Marca del producto "<<i+1<<" : "<<PRODUCTOS[i].marca;
+                            cout<<"--------------------------------------------------------------------"<<endl;
+                        }
+                        cout<<"Elija el numero del producto: "; cin>>op;
+                        cout<<green<<"Nuevo nombre: "; getline(cin,PRODUCTOS[op].nomb);
+                        cout<<green<<"\nNueva marca: "; getline(cin, PRODUCTOS[op].marca);
+                    break;
+
+                    case 'C': case 'c':
+                        for(int i=0;i<k;i++){
+                            cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
+                            cout<<green<<"Tipo de alimento "<<i+1<<" : "<<PRODUCTOS[i].t_alimento;
+                            cout<<"--------------------------------------------------------------------"<<endl;
+                        }
+                        cout<<"Elija el numero del producto: "; cin>>op;
+                        cout<<green<<"Nuevo nombre: "; getline(cin,PRODUCTOS[op].nomb);
+                        cout<<green<<"\nTipo de alimento: "; cin>>PRODUCTOS[op].t_alimento;
+                    break;
+
+                    case 'D': case 'd':
+                        for(int i=0;i<k;i++){
+                            cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
+                            cout<<green<<"Autor: "<<PRODUCTOS[i].autor;
+                            cout<<green<<"Genero: "<<PRODUCTOS[i].genero;
+                            cout<<"--------------------------------------------------------------------"<<endl;
+                        }
+                        cout<<"Elija el numero del producto: "; cin>>op;
+                        cout<<green<<"Nuevo nombre: "; getline(cin,PRODUCTOS[op].nomb);
+                        cout<<green<<"\nNuevo autor: "; getline(cin,PRODUCTOS[op].autor);
+                        cout<<"\nNuevo genero: "; cin>>PRODUCTOS[op].genero;
+                    break;
             break;
             case 3: // eliminar
 

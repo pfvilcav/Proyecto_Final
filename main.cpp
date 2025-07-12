@@ -1,8 +1,10 @@
 #include<iostream>
+#include<windows.h>
 #include<cstdint> // para que termcolor.hpp funcione
 #include<ctime> // fecha y hora
 #include<iomanip> // para hacer cuadros ordenados
 #include"termcolor.hpp" //color
+
 
 using namespace std;
 using namespace termcolor;
@@ -242,4 +244,4 @@ int main() {
         }
     } while (n!=8); //salir 
     return 0;
-}
+} //ojo con break ._.

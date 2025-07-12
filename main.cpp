@@ -14,7 +14,7 @@ string fecha_hora() { // funcion string para hallar fecha y hora actual
 }
 
 struct info {
-    string nomb, fecha, t_alimento, marca, autor, genero;
+    string nomb, fecha, marca, autor, genero, cat;
     double precio;
     int cant;
 } PRODUCTOS[250];
@@ -35,9 +35,9 @@ int menu() { // menu (modularizar)
 
 int main() {
     char rpta;
-    int n, catAa = 0, catBb = 0, catCc = 0, catDd = 0, total = 0, indice = 0;
+    int n, catAa = 0, catBb = 0, catCc = 0, catDd = 0, total = 0, indice = 0, suma = 0;
     int A, B, C, D; // A: PAPELERIA // B: ELECTRONICOS // C: ALIMENTOS // D: LIBROS 
-    string catA[50], catB[50], catC[50], catD[50]; // elementos en categorias
+    string catA[50], catB[50], catC[50], catD[50]; // nombre productos en categorias
 
     do {
         n = menu();
@@ -63,6 +63,7 @@ int main() {
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
                             catA[catAa] = PRODUCTOS[indice].nomb;
+                            PRODUCTOS[indice].cat = "PAPELERIA";
                             catAa++;
                             break;
 
@@ -72,15 +73,15 @@ int main() {
                             cout << green << "\nMarca del producto: ";
                             cin >> PRODUCTOS[indice].marca;
                             catB[catBb] = PRODUCTOS[indice].nomb;
+                            PRODUCTOS[indice].cat = "ELECTRONICOS";
                             catBb++;
                             break;
 
                         case 'C': case 'c':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
-                            cout << green << "\nTipo de alimento: ";
-                            cin >> PRODUCTOS[indice].t_alimento;
                             catC[catCc] = PRODUCTOS[indice].nomb;
+                            PRODUCTOS[indice].cat = "ALIMENTOS";
                             catCc++;
                             break;
 
@@ -92,6 +93,7 @@ int main() {
                             cout << "\nGenero: ";
                             cin >> PRODUCTOS[indice].genero;
                             catD[catDd] = PRODUCTOS[indice].nomb;
+                            PRODUCTOS[indice].cat = "LIBROS";
                             catDd++;
                             break;
                     }
@@ -100,6 +102,7 @@ int main() {
                     cin >> PRODUCTOS[indice].precio;
                     cout << "\nCantidad:";
                     cin >> PRODUCTOS[indice].cant;
+                    suma = suma + PRODUCTOS[indice].cant;  ////////////////////////// CANTIDAD TOTAL(SUMA)
                     cout << "\nFecha de ingreso: " << PRODUCTOS[indice].fecha;
 
                     if (i == k - 1) {
@@ -148,14 +151,64 @@ int main() {
                 break;
 
             case 6: // resumen inventario
+                cout << left;
+                // papeleria
+                cout << yellow << string(50, '-') << endl;
+                cout << "PRODUCTOS DE PAPELERIA:" <<endl;
+                cout << string(50, '-') << endl << reset;
+                for (int i = 0; i < total; i++) {
+                    if (PRODUCTOS[i].cat == "PAPELERIA") {
+                            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+                    }
+                }
+                   
+                //electronicos
+                cout << blue << string(50, '-') << endl;
+                cout << "PRODUCTOS ELECTRONICOS:" <<endl;
+                cout << string(50, '-') << endl << reset;
+                for (int i = 0; i < total; i++) {
+                    if (PRODUCTOS[i].cat == "ELECTRONICOS") {
+                            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl; 
+                    }
+                }
+                   
+                //alimentos
+                cout << green << string(50, '-') << endl;
+                cout << "PRODUCTOS ALIMENTICIOS:" <<endl;
+                cout << string(50, '-') << endl << reset;
+                for (int i = 0; i < total; i++) {
+                    if (PRODUCTOS[i].cat == "ALIMENTOS") {
+                    cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                    << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;;
+                    }
+                }
+                    
+                //libros
+                cout << red << string(50, '-') << endl;
+                cout << "PRODUCTOS BIBLIOGRAFICOS:" <<endl;
+                cout << string(50, '-') << endl << reset;
+                for (int i = 0; i < total; i++) {
+                    if (PRODUCTOS[i].cat == "LIBROS") {
+                    cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                    << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+                    }
+                }
+                cout << on_white << "La cantidad de productos es igual a: " << suma << reset << endl;
+                system("pause");
                 break;
 
-            case 7: // filtrar por categoria o proveedor
-                cout << blue << "Que categoria quiere ver? \n A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << reset << endl;
+            case 7: // filtrar nombrepor categoria
+                cout << blue << "Que categoria quiere ver? \n" << yellow << "A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << green << endl;
                 cin >> cat;
+                system("cls");
 
                 switch (cat) {
                     case 'A': case 'a':
+                    cout << yellow << string(50, '-') << endl;
+                    cout << "CATEGORIA PAPELERIA:" <<endl;
+                    cout << string(50, '-') << endl << reset;
                         for (int i = 0; i < catAa; i++) {
                             cout << i + 1 << ") " << catA[i] << endl;
                         }
@@ -163,6 +216,9 @@ int main() {
                         break;
 
                     case 'B': case 'b':
+                    cout << blue << string(50, '-') << endl;
+                    cout << "CATEGORIA ELECTRONICOS:" <<endl;
+                    cout << string(50, '-') << endl << reset;
                         for (int i = 0; i < catBb; i++) {
                             cout << i + 1 << ") " << catB[i] << endl;
                         }
@@ -170,6 +226,9 @@ int main() {
                         break;
 
                     case 'C': case 'c':
+                    cout << green << string(50, '-') << endl;
+                    cout << "CATEGORIA ALIMENTOS:" <<endl;
+                    cout << string(50, '-') << endl << reset;
                         for (int i = 0; i < catCc; i++) {
                             cout << i + 1 << ") " << catC[i] << endl;
                         }
@@ -177,6 +236,9 @@ int main() {
                         break;
 
                     case 'D': case 'd':
+                    cout << red << string(50, '-') << endl;
+                    cout << "CATEGORIA LIBROS:" <<endl;
+                    cout << string(50, '-') << endl << reset;
                         for (int i = 0; i < catDd; i++) {
                             cout << i + 1 << ") " << catD[i] << endl;
                         }

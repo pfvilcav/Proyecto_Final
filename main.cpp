@@ -44,12 +44,12 @@ int main() {
         system("cls");
         switch (n) {
             case 1: //////agregar
-            int k;
+            int total;
             char cat;
-            cout<<green<<"*Cuantos tipos de productos quieres ingresar?"<<reset<<endl; cin>>k;
+            cout<<green<<"*Cuantos tipos de productos quieres ingresar?"<<reset<<endl; cin>>total;
             cout<<endl<<on_yellow<<"Ingrese los productos:"<<reset<<endl;
 
-            for (int i=0; i<k; i++) {
+            for (int i=0; i<total; i++) {
                 indice=total;
                 PRODUCTOS[indice].fecha=fecha_hora(); //halla la fecha y hora exacta
                 cout<<"\nCategoria: "<<red<<"Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS"<<endl; cin>>cat;
@@ -87,7 +87,7 @@ int main() {
                 cout<<green<<"\nPrecio:"; cin>>PRODUCTOS[indice].precio;
                 cout<<"\nCantidad:"; cin>>PRODUCTOS[indice].cant;
                 cout<<"\nFecha de ingreso: "<<PRODUCTOS[indice].fecha;
-                if (i==k-1) { //termina el case A en funcion de k=cantidad de productos, si no, lo resetea
+                if (i==total-1) { //termina el case A en funcion de k=cantidad de productos, si no, lo resetea
                     cout<<reset<<on_blue<<"\nHecho!";
                     system("pause");
                 }
@@ -99,12 +99,15 @@ int main() {
             
             break;
             case 2: 
+                cout<<"*****************************************"<<endl;
+                cout<<green<<"==============EDITAR=PRODUCTOS==========="<<endl;
+                cout<<"*****************************************"<<endl;
                 int op;
                 cout<<"\nCategoria: "<<red<<"Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS"<<endl; cin>>cat;
                 cin.ignore();
                 switch(cat) { //categorias
                     case 'A': case 'a':
-                        for(int i=0;i<k;i++){
+                        for(int i=0;i<total;i++){
                             cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
                             cout<<"--------------------------------------------------------------------"<<endl;
                         }
@@ -113,7 +116,7 @@ int main() {
                     break;
 
                     case 'B': case 'b':
-                        for(int i=0;i<k;i++){
+                        for(int i=0;i<total;i++){
                             cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
                             cout<<green<<"Marca del producto "<<i+1<<" : "<<PRODUCTOS[i].marca;
                             cout<<"--------------------------------------------------------------------"<<endl;
@@ -124,7 +127,7 @@ int main() {
                     break;
 
                     case 'C': case 'c':
-                        for(int i=0;i<k;i++){
+                        for(int i=0;i<total;i++){
                             cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
                             cout<<green<<"Tipo de alimento "<<i+1<<" : "<<PRODUCTOS[i].t_alimento;
                             cout<<"--------------------------------------------------------------------"<<endl;
@@ -135,7 +138,7 @@ int main() {
                     break;
 
                     case 'D': case 'd':
-                        for(int i=0;i<k;i++){
+                        for(int i=0;i<total;i++){
                             cout<<green<<"Nombre del producto "<<i+1<<": "<<PRODUCTOS[i].nomb;
                             cout<<green<<"Autor: "<<PRODUCTOS[i].autor;
                             cout<<green<<"Genero: "<<PRODUCTOS[i].genero;
@@ -146,14 +149,32 @@ int main() {
                         cout<<green<<"\nNuevo autor: "; getline(cin,PRODUCTOS[op].autor);
                         cout<<"\nNuevo genero: "; cin>>PRODUCTOS[op].genero;
                     break;
+                    default:{
+                        cout<<"Elija una opcion valida..."<<endl;
+                        system("pause");
+                    }
+                        
             break;
             case 3: // eliminar
+                cout<<"*****************************************"<<endl;
+                cout<<green<<"============ELIMINAR=PRODUCTO============"<<endl;
+                cout<<"*****************************************"<<endl;
+                int op;
+                cout<<"\nCategoria del producto a eliminar: "<<red<<"Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS"<<endl; cin>>cat;
+                cin.ignore();
+
 
             break;
             case 4: // buscar por nombre
-
+                cout<<"*****************************************"<<endl;
+                cout<<green<<"============BUSCAR=POR=NOMBRE============"<<endl;
+                cout<<"*****************************************"<<endl;
+                cout<<"\nIngrese nombre del producto: ";
             break;
             case 5: // lista de productos
+                cout<<"*****************************************"<<endl;
+                cout<<green<<"============LISTA=DE=PRODUCTOS==========="<<endl;
+                cout<<"*****************************************"<<endl;
                 if(total==0) {
                     cout<<on_red<<"No hay productos registrados."<<reset<<endl;
                     system("pause");
@@ -174,6 +195,10 @@ int main() {
             system("pause");
             break;
             case 6: // resumen inventario
+                cout<<"*****************************************"<<endl;
+                cout<<green<<"================INVENTARIO==============="<<endl;
+                cout<<"*****************************************"<<endl;
+                cout<<"\nCATEGORIAS: "<<endl;//imprimir por categoria??
 
             break;
             case 7: // filtrar por categoria o proveedor
@@ -211,12 +236,12 @@ int main() {
                 return 0;
             break;
 
-            default:
-            cout<<on_red<<"Opcion no valida..."<<reset<<endl;
+            default:{
+                cout<<on_red<<"Opcion no valida..."<<reset<<endl;
                 system("pause");
-                break;
+            }
+            
         }
-    }
-    while (n!=8); //salir
+    } while (n!=8); //salir
     return 0;
 }

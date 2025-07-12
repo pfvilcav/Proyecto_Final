@@ -1,5 +1,4 @@
 #include<iostream>
-#include<cstdint> // para que termcolor.hpp funcione
 #include<ctime> // fecha y hora
 #include<iomanip> // para hacer cuadros ordenados
 #include"termcolor.hpp" //color
@@ -26,7 +25,7 @@ int menu() { //menu (modularizar)
     cout<<on_green<<"//////////////////////////////////////////////////////////"<<endl;
     cout<<"/              GESTOR DE PRODUCTOS Y ALMACEN             /"<<reset<<endl;
     cout<<on_green<<"//////////////////////////////////////////////////////////"<<reset<<endl;
-    cout<<on_blue<<"1) Agregar producto."<<endl<<"2) Editar producto."<<endl<<"3) Eliminar producto."<<endl;
+    cout<<blue<<"1) Agregar producto."<<endl<<"2) Editar producto."<<endl<<"3) Eliminar producto."<<endl;
     cout<<"4) Buscar producto por nombre."<<endl<<"5) Ver lista de productos."<<endl<<"6) Ver resumen del inventario"<<endl;
     cout<<"7) Filtrar productos por categoria o proveedor."<<endl<<"8) Salir."<<reset<<endl;
     cout<<on_yellow<<"Ingrese la opcion que usted desee realizar:"<<reset<<endl;

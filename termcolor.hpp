@@ -13,6 +13,11 @@
 #define TERMCOLOR_HPP_
 
 #include <iostream>
+#include <windows.h>
+
+#ifndef COMMON_LVB_UNDERSCORE
+#define COMMON_LVB_UNDERSCORE 0x8000
+#endif
 
 // Detect target's platform and set some macros in order to wrap platform
 // specific code this library depends on.

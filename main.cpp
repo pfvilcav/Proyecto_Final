@@ -1,34 +1,31 @@
 #include <iostream>
 #include <ctime>            // fecha y hora
 #include <iomanip>          // para hacer cuadros ordenados
+#include <string>           //fixed string
+
+#include "manager_funcs.h"
+#include "manager_utils.h"
 #include "termcolor.hpp"    // color
 
 using namespace std;
 using namespace termcolor;
 
-string fecha_hora() {
-    time_t t = time(nullptr);
-    char buffer[30];
-    strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", localtime(&t));
-    return buffer;
-}
-
-struct info {
-    string nomb, fecha, marca, autor, genero, cat;
-    double precio;
-    int cant;
-} PRODUCTOS[250];
-
 int menu() {
     int opcion;
     system("cls");
-    cout << on_green << "//////////////////////////////////////////////////////////" << endl;
-    cout << "/              GESTOR DE PRODUCTOS Y ALMACEN             /" << reset << endl;
-    cout << on_green << "//////////////////////////////////////////////////////////" << reset << endl;
-    cout << blue << "1) Agregar producto." << endl << "2) Editar producto." << endl << "3) Eliminar producto." << endl;
-    cout << "4) Buscar producto por nombre." << endl << "5) Ver lista de productos." << endl << "6) Ver resumen del inventario" << endl;
-    cout << "7) Filtrar productos por categoria o proveedor." << endl << "8) Salir." << reset << endl;
+    cout << on_green << "==========================================================" << endl;
+    cout << "              [GESTOR DE PRODUCTOS Y ALMACEN]             " << reset << endl;
+    cout << on_green << "==========================================================" << reset << endl;
+    cout << blue << "1) Agregar producto." << endl 
+                 << "2) Editar producto." << endl 
+                 << "3) Eliminar producto." << endl 
+                 << "4) Buscar producto por nombre." << endl 
+                 << "5) Ver lista de productos." << endl 
+                 << "6) Ver resumen del inventario" << endl 
+                 << "7) Filtrar productos por categoria o proveedor." << endl 
+                 << "8) Salir." << reset << endl;
     cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
+    cin.ignore(); //fix bucle
     cin >> opcion;
     return opcion;
 }
@@ -36,9 +33,6 @@ int menu() {
 int main() {
     char rpta;
     int n, total = 0, indice = 0, suma = 0;
-    //int catAa = 0, catBb = 0, catCc = 0, catDd = 0;
-    //string catA[50], catB[50], catC[50], catD[50];
-
     do {
         n = menu();
         system("cls");
@@ -62,25 +56,19 @@ int main() {
                         case 'A': case 'a':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
-                            //catA[catAa] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "PAPELERIA";
-                            //catAa++;
                             break;
                         case 'B': case 'b':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
                             cout << green << "\nMarca del producto: ";
                             cin >> PRODUCTOS[indice].marca;
-                            //catB[catBb] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "ELECTRONICOS";
-                            //catBb++;
                             break;
                         case 'C': case 'c':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
-                            //catC[catCc] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "ALIMENTOS";
-                            //catCc++;
                             break;
                         case 'D': case 'd':
                             cout << green << "Nombre del producto:";
@@ -89,9 +77,7 @@ int main() {
                             getline(cin, PRODUCTOS[indice].autor);
                             cout << "\nGenero: ";
                             cin >> PRODUCTOS[indice].genero;
-                            //catD[catDd] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "LIBROS";
-                            //catDd++;
                             break;
                     }
 

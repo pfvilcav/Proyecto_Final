@@ -6,7 +6,7 @@
 using namespace std;
 using namespace termcolor;
 
-string fecha_hora() { // funcion string para hallar fecha y hora actual
+string fecha_hora() {
     time_t t = time(nullptr);
     char buffer[30];
     strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", localtime(&t));
@@ -19,7 +19,7 @@ struct info {
     int cant;
 } PRODUCTOS[250];
 
-int menu() { // menu (modularizar)
+int menu() {
     int opcion;
     system("cls");
     cout << on_green << "//////////////////////////////////////////////////////////" << endl;
@@ -35,16 +35,16 @@ int menu() { // menu (modularizar)
 
 int main() {
     char rpta;
-    int n, catAa = 0, catBb = 0, catCc = 0, catDd = 0, total = 0, indice = 0, suma = 0;
-    int A, B, C, D; // A: PAPELERIA // B: ELECTRONICOS // C: ALIMENTOS // D: LIBROS 
-    string catA[50], catB[50], catC[50], catD[50]; // nombre productos en categorias
+    int n, total = 0, indice = 0, suma = 0;
+    //int catAa = 0, catBb = 0, catCc = 0, catDd = 0;
+    //string catA[50], catB[50], catC[50], catD[50];
 
     do {
         n = menu();
         system("cls");
 
         switch (n) {
-            case 1: ////// agregar
+            case 1: {
                 int k;
                 char cat;
                 cout << green << "*Cuantos tipos de productos quieres ingresar?" << reset << endl;
@@ -53,38 +53,35 @@ int main() {
 
                 for (int i = 0; i < k; i++) {
                     indice = total;
-                    PRODUCTOS[indice].fecha = fecha_hora(); // halla la fecha y hora exacta
+                    PRODUCTOS[indice].fecha = fecha_hora();
                     cout << "\nCategoria: " << red << "Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS" << endl;
                     cin >> cat;
                     cin.ignore();
 
-                    switch (cat) { // categorias
+                    switch (cat) {
                         case 'A': case 'a':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
-                            catA[catAa] = PRODUCTOS[indice].nomb;
+                            //catA[catAa] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "PAPELERIA";
-                            catAa++;
+                            //catAa++;
                             break;
-
                         case 'B': case 'b':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
                             cout << green << "\nMarca del producto: ";
                             cin >> PRODUCTOS[indice].marca;
-                            catB[catBb] = PRODUCTOS[indice].nomb;
+                            //catB[catBb] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "ELECTRONICOS";
-                            catBb++;
+                            //catBb++;
                             break;
-
                         case 'C': case 'c':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
-                            catC[catCc] = PRODUCTOS[indice].nomb;
+                            //catC[catCc] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "ALIMENTOS";
-                            catCc++;
+                            //catCc++;
                             break;
-
                         case 'D': case 'd':
                             cout << green << "Nombre del producto:";
                             getline(cin, PRODUCTOS[indice].nomb);
@@ -92,9 +89,9 @@ int main() {
                             getline(cin, PRODUCTOS[indice].autor);
                             cout << "\nGenero: ";
                             cin >> PRODUCTOS[indice].genero;
-                            catD[catDd] = PRODUCTOS[indice].nomb;
+                            //catD[catDd] = PRODUCTOS[indice].nomb;
                             PRODUCTOS[indice].cat = "LIBROS";
-                            catDd++;
+                            //catDd++;
                             break;
                     }
 
@@ -102,7 +99,8 @@ int main() {
                     cin >> PRODUCTOS[indice].precio;
                     cout << "\nCantidad:";
                     cin >> PRODUCTOS[indice].cant;
-                    suma = suma + PRODUCTOS[indice].cant;  ////////////////////////// CANTIDAD TOTAL(SUMA)
+                    suma += PRODUCTOS[indice].cant;
+
                     cout << "\nFecha de ingreso: " << PRODUCTOS[indice].fecha;
 
                     if (i == k - 1) {
@@ -114,19 +112,76 @@ int main() {
 
                     total++;
                 }
+                break;
+            }
 
+            case 2: {
+                int op, nump, edit;
+                string SN;
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
+
+                cout << left;
+                cout << setw(5) << "NUM"
+                     << setw(25) << "Nombre"
+                     << setw(22) << "Fecha"
+                     << setw(10) << "Precio" << endl;
+                cout << string(70, '-') << endl;
+
+                for (int i = 0; i < total; i++) {
+                    cout << setw(5) << i + 1;
+                    cout << setw(25) << PRODUCTOS[i].nomb;
+                    cout << setw(25) << PRODUCTOS[i].fecha;
+                    cout << setw(10) << PRODUCTOS[i].precio << endl;
+                }
+
+                cout << "Numero de productos a editar: "; cin >> op;
+                for (int i = 0; i < op; i++) {
+                    cout << "-----------------------------------" << endl;
+                    cout << "\nNumero de producto: "; cin >> nump;
+                    do {
+                        cin.ignore();
+                        cout << "________________________________________________________________________________________________" << endl;
+                        cout << "\nEditar: " << red << " 1) Nombre | 2) Precio | 3) Genero (libros) | 4) Autor (libros) | 5) Marca (electronicos)  " << reset << endl;
+                        cin >> edit;
+                        cin.ignore();
+                        switch (edit) {
+                            case 1:
+                                cout << "Nuevo Nombre: "; getline(cin, PRODUCTOS[nump - 1].nomb);
+                                break;
+                            case 2:
+                                cout << "\nNuevo Precio: "; cin >> PRODUCTOS[nump - 1].precio;
+                                break;
+                            case 3:
+                                cout << "\nNuevo Genero: "; getline(cin, PRODUCTOS[nump - 1].genero);
+                                break;
+                            case 4:
+                                cout << "\nNuevo Autor: "; getline(cin, PRODUCTOS[nump - 1].autor);
+                                break;
+                            case 5:
+                                cout << "\nNueva Marca: "; getline(cin, PRODUCTOS[nump - 1].marca);
+                                break;
+                            default:
+                                cout << "Opcion no valida";
+                                break;
+                        }
+                        cout << "Desea editar algo mas?? (S para continuar N para detener): ";
+                        cin >> SN;
+                    } while (SN == "S" || SN == "N");
+                }
+                break;
+            }
+
+            case 3:
                 break;
 
-            case 2: // editar
+            case 4:
                 break;
 
-            case 3: // eliminar
-                break;
-
-            case 4: // buscar por nombre
-                break;
-
-            case 5: // lista de productos
+            case 5: {
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
                     system("pause");
@@ -149,115 +204,119 @@ int main() {
 
                 system("pause");
                 break;
+            }
 
-            case 6: // resumen inventario
+            case 6: {
                 cout << left;
-                // papeleria
                 cout << yellow << string(50, '-') << endl;
-                cout << "PRODUCTOS DE PAPELERIA:" <<endl;
+                cout << "PRODUCTOS DE PAPELERIA:" << endl;
                 cout << string(50, '-') << endl << reset;
                 for (int i = 0; i < total; i++) {
                     if (PRODUCTOS[i].cat == "PAPELERIA") {
-                            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
                     }
                 }
-                   
-                //electronicos
+
                 cout << blue << string(50, '-') << endl;
-                cout << "PRODUCTOS ELECTRONICOS:" <<endl;
+                cout << "PRODUCTOS ELECTRONICOS:" << endl;
                 cout << string(50, '-') << endl << reset;
                 for (int i = 0; i < total; i++) {
                     if (PRODUCTOS[i].cat == "ELECTRONICOS") {
-                            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl; 
+                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
                     }
                 }
-                   
-                //alimentos
+
                 cout << green << string(50, '-') << endl;
-                cout << "PRODUCTOS ALIMENTICIOS:" <<endl;
+                cout << "PRODUCTOS ALIMENTICIOS:" << endl;
                 cout << string(50, '-') << endl << reset;
                 for (int i = 0; i < total; i++) {
                     if (PRODUCTOS[i].cat == "ALIMENTOS") {
-                    cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                    << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;;
+                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
                     }
                 }
-                    
-                //libros
+
                 cout << red << string(50, '-') << endl;
-                cout << "PRODUCTOS BIBLIOGRAFICOS:" <<endl;
+                cout << "PRODUCTOS BIBLIOGRAFICOS:" << endl;
                 cout << string(50, '-') << endl << reset;
                 for (int i = 0; i < total; i++) {
                     if (PRODUCTOS[i].cat == "LIBROS") {
-                    cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                    << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
                     }
                 }
+
                 cout << on_white << "La cantidad de productos es igual a: " << suma << reset << endl;
                 system("pause");
                 break;
+            }
 
-            case 7: // filtrar nombrepor categoria
+            case 7:
+                char cat;
                 cout << blue << "Que categoria quiere ver? \n" << yellow << "A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << green << endl;
                 cin >> cat;
                 system("cls");
 
                 switch (cat) {
                     case 'A': case 'a':
-                    cout << yellow << string(50, '-') << endl;
-                    cout << "CATEGORIA PAPELERIA:" <<endl;
-                    cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < catAa; i++) {
-                            cout << i + 1 << ") " << catA[i] << endl;
-                        }
-                        system("pause");
-                        break;
+                        cout << yellow << string(50, '-') << endl;
+                        cout << "CATEGORIA PAPELERIA:" << endl;
+                        cout << string(50, '-') << endl << reset;
+                        for (int i = 0; i < total; i++) {
+                            if (PRODUCTOS[i].cat == "PAPELERIA") {
+                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                            }
+                    }
+                    break;
 
                     case 'B': case 'b':
-                    cout << blue << string(50, '-') << endl;
-                    cout << "CATEGORIA ELECTRONICOS:" <<endl;
-                    cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < catBb; i++) {
-                            cout << i + 1 << ") " << catB[i] << endl;
+                        cout << blue << string(50, '-') << endl;
+                        cout << "CATEGORIA ELECTRONICOS:" << endl;
+                        cout << string(50, '-') << endl << reset;
+                        for (int i = 0; i < total; i++) {
+                            if (PRODUCTOS[i].cat == "ELECTRONICOS") {
+                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                            }
                         }
-                        system("pause");
-                        break;
+                    break;
 
                     case 'C': case 'c':
-                    cout << green << string(50, '-') << endl;
-                    cout << "CATEGORIA ALIMENTOS:" <<endl;
-                    cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < catCc; i++) {
-                            cout << i + 1 << ") " << catC[i] << endl;
+                        cout << green << string(50, '-') << endl;
+                        cout << "CATEGORIA ALIMENTOS:" << endl;
+                        cout << string(50, '-') << endl << reset;
+                        for (int i = 0; i < total; i++) {
+                            if (PRODUCTOS[i].cat == "ALIMENTOS") {
+                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                            }
                         }
-                        system("pause");
-                        break;
+                    break;
 
                     case 'D': case 'd':
-                    cout << red << string(50, '-') << endl;
-                    cout << "CATEGORIA LIBROS:" <<endl;
-                    cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < catDd; i++) {
-                            cout << i + 1 << ") " << catD[i] << endl;
+                        cout << red << string(50, '-') << endl;
+                        cout << "CATEGORIA LIBROS:" << endl;
+                        cout << string(50, '-') << endl << reset;
+                        for (int i = 0; i < total; i++) {
+                            if (PRODUCTOS[i].cat == "LIBROS") {
+                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                            }
                         }
-                        system("pause");
-                        break;
+                    break;
                 }
+                system("pause");
+            break;
 
-                break;
-
-            case 8: // cerrar
+            case 8:
                 return 0;
-                break;
+            break;
 
             default:
                 cout << on_red << "Opcion no valida..." << reset << endl;
                 system("pause");
                 break;
         }
-    } while (n != 8); // salir
+    } while (n != 8);
 
     return 0;
 }

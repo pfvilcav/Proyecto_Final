@@ -8,6 +8,9 @@
 //! :copyright: (c) 2013 by Ihor Kalnytskyi
 //! :license: BSD, see LICENSE for details
 //!
+#ifndef COMMON_LVB_UNDERSCORE
+#define COMMON_LVB_UNDERSCORE 0x8000
+#endif
 
 #ifndef TERMCOLOR_HPP_
 #define TERMCOLOR_HPP_

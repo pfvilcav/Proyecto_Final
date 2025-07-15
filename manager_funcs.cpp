@@ -9,6 +9,9 @@
 using namespace std;
 using namespace color;
 
+extern int total;
+extern int suma;
+
 void save() {
     fstream archivo("data.txt");
     archivo.close();
@@ -102,7 +105,7 @@ void editar_producto(int op) {
             cout << blue << string(100,'=') << endl;
             cout << right << setw(56) << "[MENU DE EDICION]" << endl;
             cout << string(100,'=') << reset << endl;
-            cout << red << " 1) Nombre  2) Precio  3) Genero (libros)  4) Autor (libros)  5) Marca (electronicos)  " << reset << endl;
+            cout << red << " 1) Nombre | 2) Precio | 3) Genero (libros) | 4) Autor (libros) | 5) Marca (electronicos) " << reset << endl;
             cin >> edit;
             cin.ignore();
             switch (edit) {
@@ -149,11 +152,6 @@ void editar_producto(int op) {
 //FUNCION LISTA OPCION 5:
 
 void lista(int total) {
-    if (total == 0) {
-        cout << on_red << "No hay productos registrados." << reset << endl;
-        system("pause");
-        return;
-    }
     cout << left;
     cout << string(162, '-') << endl;
     cout <<"|"<< setw(9) << "  NUM"
@@ -175,6 +173,58 @@ void lista(int total) {
         cout <<"|"<< setw(22) <<PRODUCTOS[i].genero;
         cout <<"|"<< setw(7) <<PRODUCTOS[i].cant<< endl;
     }
+}
+
+//FUNCION FILTRADO POR CATEGORIA OPCION 7:
+
+void filtrar_cat(char cat) {
+    system("cls");
+    switch (cat) {
+        case 'A': case 'a':
+            cout << yellow << string(50, '-') << endl;
+            cout << "CATEGORIA PAPELERIA:" << endl;
+            cout << string(50, '-') << endl << reset;
+            for (int i = 0; i < total; i++) {
+                if (PRODUCTOS[i].cat == "PAPELERIA") {
+                    cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                }
+            }
+        break;
+
+        case 'B': case 'b':
+            cout << blue << string(50, '-') << endl;
+            cout << "CATEGORIA ELECTRONICOS:" << endl;
+            cout << string(50, '-') << endl << reset;
+            for (int i = 0; i < total; i++) {
+                if (PRODUCTOS[i].cat == "ELECTRONICOS") {
+                    cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                }
+            }
+        break;
+
+        case 'C': case 'c':
+            cout << green << string(50, '-') << endl;
+            cout << "CATEGORIA ALIMENTOS:" << endl;
+            cout << string(50, '-') << endl << reset;
+            for (int i = 0; i < total; i++) {
+                if (PRODUCTOS[i].cat == "ALIMENTOS") {
+                    cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                }
+            }
+        break;
+
+        case 'D': case 'd':
+            cout << red << string(50, '-') << endl;
+            cout << "CATEGORIA LIBROS:" << endl;
+            cout << string(50, '-') << endl << reset;
+            for (int i = 0; i < total; i++) {
+                if (PRODUCTOS[i].cat == "LIBROS") {
+                    cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
+                }
+            }
+        break;
+    }
+    system("pause");
 }
 
 //DEFINICION DE FUNCION MENU:
@@ -200,7 +250,8 @@ int menu() {
         } else {
             cin.clear();
             cin.ignore(1000, '\n');
-            cout << on_red << "Entrada invalida. Por favor ingrese un número." << reset << endl;
+            system("cls");
+            cout << on_red << "Entrada invalida. Por favor ingrese un numero." << reset << endl;
             system("pause");
         }
     } while (true);

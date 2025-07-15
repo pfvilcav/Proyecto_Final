@@ -10,9 +10,13 @@
 using namespace std;
 using namespace color;
 
+//VARIABLES GLOBALES:
+
+int total = 0, suma = 0;
+
 int main() {
     char rpta;
-    int n, total = 0, indice = 0, suma = 0;
+    int n, indice = 0;
     do {
         n = menu();
         system("cls");
@@ -29,6 +33,11 @@ int main() {
             }
 
             case 2: {
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
                 int op;
                 lista(total);
                 cout << green << "\nNumero de productos a editar: " << reset; 
@@ -43,12 +52,22 @@ int main() {
                 break;
 
             case 5: {
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
                 lista(total);
                 system("pause");
                 break;
             }
 
             case 6: {
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
                 cout << left;
                 cout << yellow << string(50, '-') << endl;
                 cout << "PRODUCTOS DE PAPELERIA:" << endl;
@@ -96,56 +115,15 @@ int main() {
             }
 
             case 7:
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
                 char cat;
                 cout << blue << "Que categoria quiere ver? \n" << yellow << "A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << green << endl;
                 cin >> cat;
-                system("cls");
-                switch (cat) {
-                    case 'A': case 'a':
-                        cout << yellow << string(50, '-') << endl;
-                        cout << "CATEGORIA PAPELERIA:" << endl;
-                        cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < total; i++) {
-                            if (PRODUCTOS[i].cat == "PAPELERIA") {
-                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
-                            }
-                    }
-                    break;
-
-                    case 'B': case 'b':
-                        cout << blue << string(50, '-') << endl;
-                        cout << "CATEGORIA ELECTRONICOS:" << endl;
-                        cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < total; i++) {
-                            if (PRODUCTOS[i].cat == "ELECTRONICOS") {
-                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
-                            }
-                        }
-                    break;
-
-                    case 'C': case 'c':
-                        cout << green << string(50, '-') << endl;
-                        cout << "CATEGORIA ALIMENTOS:" << endl;
-                        cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < total; i++) {
-                            if (PRODUCTOS[i].cat == "ALIMENTOS") {
-                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
-                            }
-                        }
-                    break;
-
-                    case 'D': case 'd':
-                        cout << red << string(50, '-') << endl;
-                        cout << "CATEGORIA LIBROS:" << endl;
-                        cout << string(50, '-') << endl << reset;
-                        for (int i = 0; i < total; i++) {
-                            if (PRODUCTOS[i].cat == "LIBROS") {
-                                cout << i + 1 << ") " << PRODUCTOS[i].nomb << " - S/. " << PRODUCTOS[i].precio << endl;
-                            }
-                        }
-                    break;
-                }
-                system("pause");
+                filtrar_cat(cat);
             break;
 
             case 0: {

@@ -20,6 +20,10 @@ void editar_producto(int op);
 
 void lista(int total);
 
+//DECLARACION FUNCION FILTRAR POR CATEGORIA:
+
+void filtrar_cat(char cat);
+
 //DECLARACION DE FUNCION MENU:
 int menu();
 

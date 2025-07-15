@@ -5,28 +5,38 @@
 
 #include "manager_funcs.h"
 #include "manager_utils.h"
-#include "termcolor.hpp"    // color
+#include "termcolor.hpp"    // color update
 
 using namespace std;
-using namespace termcolor;
+using namespace color;
 
 int menu() {
     int opcion;
-    system("cls");
-    cout << on_green << "==========================================================" << endl;
-    cout << "              [GESTOR DE PRODUCTOS Y ALMACEN]             " << reset << endl;
-    cout << on_green << "==========================================================" << reset << endl;
-    cout << blue << "1) Agregar producto." << endl 
-                 << "2) Editar producto." << endl 
-                 << "3) Eliminar producto." << endl 
-                 << "4) Buscar producto por nombre." << endl 
-                 << "5) Ver lista de productos." << endl 
-                 << "6) Ver resumen del inventario" << endl 
-                 << "7) Filtrar productos por categoria o proveedor." << endl 
-                 << "8) Salir." << reset << endl;
-    cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
-    cin.ignore(); //fix bucle
-    cin >> opcion;
+    bool valido = false;
+    do {
+        system("cls");
+        cout << on_green << "==========================================================" << endl;
+        cout << "              [GESTOR DE PRODUCTOS Y ALMACEN]             " << reset << endl;
+        cout << on_green << "==========================================================" << reset << endl;
+        cout << blue << "1) Agregar producto." << endl 
+                     << "2) Editar producto." << endl 
+                     << "3) Eliminar producto." << endl 
+                     << "4) Buscar producto por nombre." << endl 
+                     << "5) Ver lista de productos." << endl 
+                     << "6) Ver resumen del inventario" << endl 
+                     << "7) Filtrar productos por categoria o proveedor." << endl 
+                     << "0) Salir." << reset << endl;
+        cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
+
+        if (cin >> opcion && opcion >= 1 && opcion <= 8) {
+            valido = true;
+        } else {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << on_red << "Opcion no valida. Presione una tecla para intentar nuevamente." << reset << endl;
+            system("pause");
+        }
+    } while (!valido);
     return opcion;
 }
 
@@ -79,6 +89,9 @@ int main() {
                             cin >> PRODUCTOS[indice].genero;
                             PRODUCTOS[indice].cat = "LIBROS";
                             break;
+                        default:
+                        menu();
+                        break;
                     }
 
                     cout << green << "\nPrecio:";
@@ -244,7 +257,6 @@ int main() {
                 cout << blue << "Que categoria quiere ver? \n" << yellow << "A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << green << endl;
                 cin >> cat;
                 system("cls");
-
                 switch (cat) {
                     case 'A': case 'a':
                         cout << yellow << string(50, '-') << endl;
@@ -293,7 +305,7 @@ int main() {
                 system("pause");
             break;
 
-            case 8:
+            case 0:
                 return 0;
             break;
 

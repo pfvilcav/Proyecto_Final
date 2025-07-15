@@ -7,5 +7,20 @@ using namespace std;
 
 void save();
 int load();
+
+//DECLARACION FUNCION AGREGAR:
+
 void agregar_producto(int cantidad, int &indice, int &total, int &suma);
+
+//DECLARACION FUNCION EDITAR:
+
+void editar_producto(int op);
+
+//DECLARACION FUNCION LISTA:
+
+void lista(int total);
+
+//DECLARACION DE FUNCION MENU:
+int menu();
+
 #endif

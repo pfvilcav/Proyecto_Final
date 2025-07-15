@@ -7,11 +7,16 @@ using namespace std;
 
 string fecha_hora();
 
+//DECLARACION Y DEFINICION DE ESTRUCTURA INFO:
+
 struct info {
     string nomb, fecha, marca, autor, genero, cat;
     double precio;
     int cant;
 };
-extern info PRODUCTOS[250]; //declaracion de arreglo PRODUCTOS
+
+//DECLARACION DE ARREGLO PRODUCTOS:
+
+extern info PRODUCTOS[250];
 
 #endif

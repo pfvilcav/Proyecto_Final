@@ -10,36 +10,6 @@
 using namespace std;
 using namespace color;
 
-int menu() {
-    int opcion;
-    bool valido = false;
-    do {
-        system("cls");
-        cout << on_green << "==========================================================" << endl;
-        cout << "              [GESTOR DE PRODUCTOS Y ALMACEN]             " << reset << endl;
-        cout << on_green << "==========================================================" << reset << endl;
-        cout << blue << "1) Agregar producto." << endl 
-                     << "2) Editar producto." << endl 
-                     << "3) Eliminar producto." << endl 
-                     << "4) Buscar producto por nombre." << endl 
-                     << "5) Ver lista de productos." << endl 
-                     << "6) Ver resumen del inventario" << endl 
-                     << "7) Filtrar productos por categoria o proveedor." << endl 
-                     << "0) Salir." << reset << endl;
-        cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
-
-        if (cin >> opcion && opcion >= 0 && opcion <= 7) {
-            valido = true;
-        } else {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << on_red << "Opcion no valida. Presione una tecla para intentar nuevamente." << reset << endl;
-            system("pause");
-        }
-    } while (!valido);
-    return opcion;
-}
-
 int main() {
     char rpta;
     int n, total = 0, indice = 0, suma = 0;
@@ -59,65 +29,13 @@ int main() {
             }
 
             case 2: {
-                int op, nump, edit;
-                char SN;
-                if (total == 0) {
-                    cout << on_red << "No hay productos registrados." << reset << endl;
-                    system("pause");
-                    break;
-                }
-
-                cout << left;
-                cout << setw(5) << "NUM"
-                     << setw(25) << "Nombre"
-                     << setw(22) << "Fecha"
-                     << setw(10) << "Precio" << endl;
-                cout << string(70, '-') << endl;
-
-                for (int i = 0; i < total; i++) {
-                    cout << setw(5) << i + 1;
-                    cout << setw(25) << PRODUCTOS[i].nomb;
-                    cout << setw(25) << PRODUCTOS[i].fecha;
-                    cout << setw(10) << PRODUCTOS[i].precio << endl;
-                }
-
-                cout << "Numero de productos a editar: "; cin >> op;
-                for (int i = 0; i < op; i++) {
-                    cout << "-----------------------------------" << endl;
-                    cout << "\nNumero de producto: "; cin >> nump;
-                    do {
-                        cin.ignore();
-                        cout << "________________________________________________________________________________________________" << endl;
-                        cout << "\nEditar: " << red << " 1) Nombre | 2) Precio | 3) Genero (libros) | 4) Autor (libros) | 5) Marca (electronicos)  " << reset << endl;
-                        cin >> edit;
-                        cin.ignore();
-                        switch (edit) {
-                            case 1:
-                                cout << "Nuevo Nombre: "; getline(cin, PRODUCTOS[nump - 1].nomb);
-                                break;
-                            case 2:
-                                cout << "\nNuevo Precio: "; cin >> PRODUCTOS[nump - 1].precio;
-                                break;
-                            case 3:
-                                cout << "\nNuevo Genero: "; getline(cin, PRODUCTOS[nump - 1].genero);
-                                break;
-                            case 4:
-                                cout << "\nNuevo Autor: "; getline(cin, PRODUCTOS[nump - 1].autor);
-                                break;
-                            case 5:
-                                cout << "\nNueva Marca: "; getline(cin, PRODUCTOS[nump - 1].marca);
-                                break;
-                            default:
-                                cout << "Opcion no valida";
-                                break;
-                        }
-                        cout << "Desea editar algo mas?? (S para continuar N para detener): ";
-                        cin >> SN;
-                    } while (SN == 'S' || SN == 's');
-                }
+                int op;
+                lista(total);
+                cout << green << "\nNumero de productos a editar: " << reset; 
+                cin >> op;
+                editar_producto(op);
                 break;
             }
-
             case 3:
                 break;
 
@@ -125,26 +43,7 @@ int main() {
                 break;
 
             case 5: {
-                if (total == 0) {
-                    cout << on_red << "No hay productos registrados." << reset << endl;
-                    system("pause");
-                    break;
-                }
-
-                cout << left;
-                cout << setw(5) << "NUM"
-                     << setw(25) << "Nombre"
-                     << setw(22) << "Fecha"
-                     << setw(10) << "Precio" << endl;
-                cout << string(70, '-') << endl;
-
-                for (int i = 0; i < total; i++) {
-                    cout << setw(5) << i + 1;
-                    cout << setw(25) << PRODUCTOS[i].nomb;
-                    cout << setw(25) << PRODUCTOS[i].fecha;
-                    cout << setw(10) << PRODUCTOS[i].precio << endl;
-                }
-
+                lista(total);
                 system("pause");
                 break;
             }
@@ -191,7 +90,7 @@ int main() {
                     }
                 }
 
-                cout << on_white << "La cantidad de productos es igual a: " << suma << reset << endl;
+                cout << "Total: " << suma << " unidades" << reset << endl;
                 system("pause");
                 break;
             }

@@ -28,7 +28,7 @@ int menu() {
                      << "0) Salir." << reset << endl;
         cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
 
-        if (cin >> opcion && opcion >= 1 && opcion <= 8) {
+        if (cin >> opcion && opcion >= 0 && opcion <= 7) {
             valido = true;
         } else {
             cin.clear();
@@ -54,69 +54,13 @@ int main() {
                 cout << green << "*Cuantos tipos de productos quieres ingresar?" << reset << endl;
                 cin >> k;
                 cout << endl << on_yellow << "Ingrese los productos:" << reset << endl;
-
-                for (int i = 0; i < k; i++) {
-                    indice = total;
-                    PRODUCTOS[indice].fecha = fecha_hora();
-                    cout << "\nCategoria: " << red << "Elija entre: A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS" << endl;
-                    cin >> cat;
-                    cin.ignore();
-
-                    switch (cat) {
-                        case 'A': case 'a':
-                            cout << green << "Nombre del producto:";
-                            getline(cin, PRODUCTOS[indice].nomb);
-                            PRODUCTOS[indice].cat = "PAPELERIA";
-                            break;
-                        case 'B': case 'b':
-                            cout << green << "Nombre del producto:";
-                            getline(cin, PRODUCTOS[indice].nomb);
-                            cout << green << "\nMarca del producto: ";
-                            cin >> PRODUCTOS[indice].marca;
-                            PRODUCTOS[indice].cat = "ELECTRONICOS";
-                            break;
-                        case 'C': case 'c':
-                            cout << green << "Nombre del producto:";
-                            getline(cin, PRODUCTOS[indice].nomb);
-                            PRODUCTOS[indice].cat = "ALIMENTOS";
-                            break;
-                        case 'D': case 'd':
-                            cout << green << "Nombre del producto:";
-                            getline(cin, PRODUCTOS[indice].nomb);
-                            cout << green << "\nAutor: ";
-                            getline(cin, PRODUCTOS[indice].autor);
-                            cout << "\nGenero: ";
-                            cin >> PRODUCTOS[indice].genero;
-                            PRODUCTOS[indice].cat = "LIBROS";
-                            break;
-                        default:
-                        menu();
-                        break;
-                    }
-
-                    cout << green << "\nPrecio:";
-                    cin >> PRODUCTOS[indice].precio;
-                    cout << "\nCantidad:";
-                    cin >> PRODUCTOS[indice].cant;
-                    suma += PRODUCTOS[indice].cant;
-
-                    cout << "\nFecha de ingreso: " << PRODUCTOS[indice].fecha;
-
-                    if (i == k - 1) {
-                        cout << reset << on_blue << "\nHecho!";
-                        system("pause");
-                    } else {
-                        cout << reset << on_yellow << "\n===================================" << reset << endl;
-                    }
-
-                    total++;
-                }
+                agregar_producto(k, indice, total, suma);
                 break;
             }
 
             case 2: {
                 int op, nump, edit;
-                string SN;
+                char SN;
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
                     system("pause");
@@ -169,7 +113,7 @@ int main() {
                         }
                         cout << "Desea editar algo mas?? (S para continuar N para detener): ";
                         cin >> SN;
-                    } while (SN == "S" || SN == "N");
+                    } while (SN == 'S' || SN == 's');
                 }
                 break;
             }
@@ -305,16 +249,18 @@ int main() {
                 system("pause");
             break;
 
-            case 0:
+            case 0: {
+                cout << on_green << "\nGracias por usar el gestor de productos. ¡Hasta pronto!" << reset << endl;
+                system("pause");
                 return 0;
-            break;
+            }
 
             default:
                 cout << on_red << "Opcion no valida..." << reset << endl;
                 system("pause");
                 break;
         }
-    } while (n != 8);
+    } while (n != 0);
 
     return 0;
 }

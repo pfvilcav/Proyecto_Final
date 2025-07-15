@@ -181,7 +181,6 @@ void lista(int total) {
 
 int menu() {
     int opcion;
-    bool valido = false;
     do {
         system("cls");
         cout << on_green << "==========================================================" << endl;
@@ -195,16 +194,15 @@ int menu() {
                      << "6) Ver resumen del inventario" << endl 
                      << "7) Filtrar productos por categoria o proveedor." << endl 
                      << "0) Salir." << reset << endl;
-        cout << on_yellow << "Ingrese la opcion que usted desee realizar:" << reset << endl;
-
-        if (cin >> opcion && opcion >= 0 && opcion <= 7) {
-            valido = true;
+        cout << on_yellow << "Seleccione una opcion:" << reset << endl;
+        if (cin >> opcion) {
+            break;
         } else {
             cin.clear();
             cin.ignore(1000, '\n');
-            cout << on_red << "Opcion no valida. Presione una tecla para intentar nuevamente." << reset << endl;
+            cout << on_red << "Entrada invalida. Por favor ingrese un número." << reset << endl;
             system("pause");
         }
-    } while (!valido);
+    } while (true);
     return opcion;
 }

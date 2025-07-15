@@ -149,7 +149,7 @@ int main() {
             break;
 
             case 0: {
-                cout << on_green << "\nGracias por usar el gestor de productos. ¡Hasta pronto!" << reset << endl;
+                cout << on_green << "\nGracias por usar el gestor de productos. Hasta pronto!" << reset << endl;
                 system("pause");
                 return 0;
             }

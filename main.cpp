@@ -25,6 +25,9 @@ int main() {
             case 1: {
                 int k;
                 char cat;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
+                cout<< green <<setw(50) <<" "<<"                   AGREGAR_PRODUCTO                    "<<endl;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
                 cout << green << "*Cuantos tipos de productos quieres ingresar?" << reset << endl;
                 cin >> k;
                 cout << endl << on_yellow << "Ingrese los productos:" << reset << endl;
@@ -33,6 +36,9 @@ int main() {
             }
 
             case 2: {
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
+                cout<< green <<setw(50) <<" "<<"                        EDITAR                         "<<endl;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
                     system("pause");
@@ -49,6 +55,9 @@ int main() {
                 break;
 
             case 4: {
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
+                cout<< green <<setw(50) <<" "<<"                   BUSCAR_POR_NOMBRE                   "<<endl;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
                 string YN;
                 do{
                     buscar(total);
@@ -58,6 +67,9 @@ int main() {
                 break;
             }
             case 5: {
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
+                cout<< green <<setw(50) <<" "<<"                        VER_LISTA                      "<<endl;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
                     system("pause");
@@ -72,6 +84,9 @@ int main() {
                 break;
 
             case 7:
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
+                cout<< green <<setw(50) <<" "<<"                        CATEGORIA                      "<<endl;
+                cout<< green <<setw(50) <<" "<<"*******************************************************"<<endl;
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
                     system("pause");

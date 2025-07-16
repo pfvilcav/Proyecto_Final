@@ -1,3 +1,4 @@
+//header utils
 #ifndef MANAGER_UTILS_H
 #define MANAGER_UTILS_H
 
@@ -11,7 +12,6 @@ struct info {
     double precio;
     int cant;
 };
-
 extern info PRODUCTOS[250];
 
 inline string fecha_hora() {
@@ -20,5 +20,4 @@ inline string fecha_hora() {
     strftime(texto_fecha, sizeof(texto_fecha), "%d/%m/%Y %H:%M:%S", localtime(&t));
     return texto_fecha;
 }
-
 #endif

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip> 
+
 #include "termcolor.hpp"
 #include "manager_funcs.h"
 #include "manager_utils.h"
@@ -11,7 +12,9 @@ using namespace color;
 extern int total;
 extern int suma;
 
+
 void save(){
+
     fstream archivo("data.txt", ios::out | ios::trunc);
     if (!archivo) {
         cout <<red<< "[DEBUG indo]"<<reset<<green<<"No se encontro archivo anterior." <<reset<< endl;
@@ -69,6 +72,8 @@ void load() {
             total++;
         }
     }
+
+    save();
     archivo.close();
     return;
 }

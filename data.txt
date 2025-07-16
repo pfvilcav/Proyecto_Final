@@ -1,9 +1,9 @@
-Nombre: charqui
-Fecha: 15/07/2025 22:05:47
+Nombre: Papa peruanita
+Fecha: 15/07/2025 23:30:25
 Marca: empty
 Autor: empty
 Genero: empty
-Categoria: ALIMENTOS
-Precio: 2
-Cantidad: 2
+Categoria: empty
+Precio: 0
+Cantidad: 0
 ==================

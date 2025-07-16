@@ -1,4 +1,3 @@
-//header funcs
 #ifndef MANAGER_FUNCS_H
 #define MANAGER_FUNCS_H
 #include <iostream>

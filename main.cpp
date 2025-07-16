@@ -28,10 +28,9 @@ int main() {
             case 1: {
                 int k;
                 char cat;
-                cout << green << "*Cuántos tipos de productos quieres ingresar?" << reset << endl;
+                cout << green << "*Cuantos tipos de productos quieres ingresar?" << reset << endl;
                 cin >> k;
                 cout << endl << on_yellow << "Ingrese los productos:" << reset << endl;
-
                 for (int i = 0; i < k; i++) {
                     indice = total;
                     PRODUCTOS[indice].fecha = fecha_hora();
@@ -88,10 +87,10 @@ int main() {
 
                     total++;
                 }
+                agregar_producto(k, indice, total, suma);
                 save();
                 break;
             }
-
 
             case 2: {
                 if (total == 0) {

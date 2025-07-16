@@ -207,36 +207,6 @@ void eliminar_producto(int num) {
     //for (int i = 0)
     save();
 }
-//FUNCION BUSCAR POR NOMBRE OPCION 4:
-string tolower(string srt) {
-            transform(srt.begin(), srt.end(), srt.begin(), [](unsigned char c){return tolower(c); });
-            return srt;
-        }
-
-void buscar(int total) {
-        string name;
-        bool encontrar =false;
-        cin.ignore();
-        cout<< green <<"Ingrese nombre: "; 
-        getline(cin, name);
-        name = tolower(name);
-        for(int i=0;i<total;i++){
-            if(name == tolower(PRODUCTOS[i].nomb)){
-            cout<< "PRODUCTO #"<<i+1<<endl;
-            cout << "-------------------------------------------------------------\n";
-            cout << "NUM: " << i + 1
-                 << " | Nombre: " << PRODUCTOS[i].nomb
-                 << " | Precio: " << PRODUCTOS[i].precio
-                 << " | Cantidad: " << PRODUCTOS[i].cant
-                 << " | Fecha: " << PRODUCTOS[i].fecha << endl;
-            cout << "-------------------------------------------------------------\n";
-                encontrar=true;
-            }
-        }
-        if (!encontrar){
-            cout<< red << "Producto no encontrado." << endl;
-        }
-}
 
 //FUNCION BUSCAR POR NOMBRE OPCION 4:
 string tolower(string srt) {

@@ -1,12 +1,15 @@
-//header funcs
 #ifndef MANAGER_FUNCS_H
 #define MANAGER_FUNCS_H
 #include <iostream>
 #include <string>
+#include "termcolor.hpp"    // color update
+
+using namespace color;
 using namespace std;
 
 void save();
-int load();
+void load();
+void eliminar_producto(int num);
 
 //DECLARACION FUNCION AGREGAR:
 

@@ -5,39 +5,80 @@
 #include <algorithm> 
 #include <cctype>
 #include <string>
+
 #include "termcolor.hpp"
 #include "manager_funcs.h"
 #include "manager_utils.h"
 
 using namespace std;
 using namespace color;
-
 extern int total;
 extern int suma;
 
-void save() {
-    fstream archivo("data.txt");
+void save(){
+
+    fstream archivo("data.txt", ios::out | ios::trunc);
+    if (!archivo) {
+        cout <<red<< "[DEBUG indo]"<<reset<<green<<"No se encontro archivo anterior." <<reset<< endl;
+        return;
+    }
+    for (int i = 0; i < total; i++) {
+        archivo << "Nombre: " << (PRODUCTOS[i].nomb.empty() ? "empty" : PRODUCTOS[i].nomb) << endl;
+        archivo << "Fecha: " << (PRODUCTOS[i].fecha.empty() ? "empty" : PRODUCTOS[i].fecha) << endl;
+        archivo << "Marca: " << (PRODUCTOS[i].marca.empty() ? "empty" : PRODUCTOS[i].marca) << endl;
+        archivo << "Autor: " << (PRODUCTOS[i].autor.empty() ? "empty" : PRODUCTOS[i].autor) << endl;
+        archivo << "Genero: " << (PRODUCTOS[i].genero.empty() ? "empty" : PRODUCTOS[i].genero) << endl;
+        archivo << "Categoria: " << (PRODUCTOS[i].cat.empty() ? "empty" : PRODUCTOS[i].cat) << endl;
+        archivo << "Precio: " << PRODUCTOS[i].precio << endl;
+        archivo << "Cantidad: " << PRODUCTOS[i].cant << endl;
+        archivo << "==================" << endl;
+    }
     archivo.close();
 }
 
-int load() {
-    fstream archivo("data.txt");
+void load() {
+    fstream archivo("data.txt", ios::in);
+    if (!archivo) {
+        cout <<red<< "[DEBUG indo]"<<reset<<green<<"No se encontro archivo anterior." <<reset<< endl;
+        return;
+    }
+    total = 0;
+    string linea;
+    while (getline(archivo, linea)) {
+        if (linea.find("Nombre: ") == 0)
+            PRODUCTOS[total].nomb = linea.substr(8);
+        getline(archivo, linea);
+        if (linea.find("Fecha: ") == 0)
+            PRODUCTOS[total].fecha = linea.substr(7);
+        getline(archivo, linea);
+        if (linea.find("Marca: ") == 0)
+            PRODUCTOS[total].marca = linea.substr(7);
+        getline(archivo, linea);
+        if (linea.find("Autor: ") == 0)
+            PRODUCTOS[total].autor = linea.substr(7);
+        getline(archivo, linea);
+        if (linea.find("Genero: ") == 0)
+            PRODUCTOS[total].genero = linea.substr(8);
+        getline(archivo, linea);
+        if (linea.find("Categoria: ") == 0)
+            PRODUCTOS[total].cat = linea.substr(11);
+        getline(archivo, linea);
+        if (linea.find("Precio: ") == 0)
+            PRODUCTOS[total].precio = stod(linea.substr(8));
+        getline(archivo, linea);
+        if (linea.find("Cantidad: ") == 0)
+            PRODUCTOS[total].cant = stoi(linea.substr(10));
+
+        getline(archivo, linea); // ===
+        if (PRODUCTOS[total].nomb != "empty") {
+            total++;
+        }
+    }
+
+    save();
     archivo.close();
+    return;
 }
-
-//DEFINICION DE ARREGLO PRODUCTOS:
-
-info PRODUCTOS[250];
-
-//FUNCION FECHA ACTUAL:
-
-string fecha_hora() {
-    time_t t = time(nullptr);
-    char texto_fecha[30];
-    strftime(texto_fecha, sizeof(texto_fecha), "%d/%m/%Y %H:%M:%S", localtime(&t));
-    return texto_fecha;
-}
-
 //FUNCION AGREGAR PRODUCTO OPCION 1:
 
 void agregar_producto(int cantidad, int &indice, int &total, int &suma) {
@@ -96,7 +137,6 @@ void agregar_producto(int cantidad, int &indice, int &total, int &suma) {
 }
 
 //FUNCION EDITAR OPCION 2:
-
 void editar_producto(int op) {
     int nump, edit;
     string SN;
@@ -148,8 +188,54 @@ void editar_producto(int op) {
             }
             cout << green <<"Desea pasar al siguiente producto? " << yellow << "(S/N)" << reset;
             cin >> SN;
+            lista(total);
         } while (SN == "N" || SN == "n");
     }
+}
+//FUNCION ELIMINAR OPCION 3:
+void eliminar_producto(int num) {
+    if (num < 1 || num > total) {
+        cout << on_red << "Numero invalido." << reset << endl;
+        return;
+    }
+    suma -= PRODUCTOS[num - 1].cant;
+    for (int i = num - 1; i < total - 1; i++) {
+        PRODUCTOS[i] = PRODUCTOS[i + 1];
+    }
+    total--;
+    cout << on_green << "Producto eliminado exitosamente." << reset << endl;
+    //for (int i = 0)
+    save();
+}
+//FUNCION BUSCAR POR NOMBRE OPCION 4:
+string tolower(string srt) {
+            transform(srt.begin(), srt.end(), srt.begin(), [](unsigned char c){return tolower(c); });
+            return srt;
+        }
+
+void buscar(int total) {
+        string name;
+        bool encontrar =false;
+        cin.ignore();
+        cout<< green <<"Ingrese nombre: "; 
+        getline(cin, name);
+        name = tolower(name);
+        for(int i=0;i<total;i++){
+            if(name == tolower(PRODUCTOS[i].nomb)){
+            cout<< "PRODUCTO #"<<i+1<<endl;
+            cout << "-------------------------------------------------------------\n";
+            cout << "NUM: " << i + 1
+                 << " | Nombre: " << PRODUCTOS[i].nomb
+                 << " | Precio: " << PRODUCTOS[i].precio
+                 << " | Cantidad: " << PRODUCTOS[i].cant
+                 << " | Fecha: " << PRODUCTOS[i].fecha << endl;
+            cout << "-------------------------------------------------------------\n";
+                encontrar=true;
+            }
+        }
+        if (!encontrar){
+            cout<< red << "Producto no encontrado." << endl;
+        }
 }
 
 //FUNCION BUSCAR POR NOMBRE OPCION 4:
@@ -304,7 +390,6 @@ void filtrar_cat(char cat) {
     }
     system("pause");
 }
-
 //DEFINICION DE FUNCION MENU:
 
 int menu() {

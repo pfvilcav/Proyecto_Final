@@ -2,6 +2,7 @@
 #include <ctime>            // fecha y hora
 #include <iomanip>          // para hacer cuadros ordenados
 #include <string>           //fixed string
+#include <fstream>
 
 #include "manager_funcs.h"
 #include "manager_utils.h"
@@ -12,9 +13,12 @@ using namespace color;
 
 //VARIABLES GLOBALES:
 
+info PRODUCTOS[250];
+
 int total = 0, suma = 0;
 
 int main() {
+    load();
     char rpta;
     int n, indice = 0;
     do {
@@ -22,13 +26,14 @@ int main() {
         system("cls");
 
         switch (n) {
-            case 1: {
+                case 1: {
                 int k;
                 char cat;
                 cout << green << "*Cuantos tipos de productos quieres ingresar?" << reset << endl;
                 cin >> k;
                 cout << endl << on_yellow << "Ingrese los productos:" << reset << endl;
                 agregar_producto(k, indice, total, suma);
+                save();
                 break;
             }
 
@@ -43,9 +48,23 @@ int main() {
                 cout << green << "\nNumero de productos a editar: " << reset; 
                 cin >> op;
                 editar_producto(op);
+                save();
                 break;
             }
             case 3:
+                if (total == 0) {
+                    cout << on_red << "No hay productos registrados." << reset << endl;
+                    system("pause");
+                    break;
+                }
+                lista(total);
+
+                int num;
+                cout << yellow << "Ingrese el numero del producto a eliminar: " << reset;
+                cin >> num;
+
+                eliminar_producto(num);
+                system("pause");
                 break;
 
             case 4: {
@@ -79,7 +98,7 @@ int main() {
                 res_inv();
                 break;
             }
-
+                     
             case 7:
                 if (total == 0) {
                     cout << on_red << "No hay productos registrados." << reset << endl;
@@ -90,7 +109,21 @@ int main() {
                 cout << blue << "Que categoria quiere ver? \n" << yellow << "A) PAPELERIA | B) ELECTRONICOS | C) ALIMENTOS | D) LIBROS " << green << endl;
                 cin >> cat;
                 filtrar_cat(cat);
-            break;
+                break;
+            case 8: {
+                fstream archivo("data.txt", ios::in);
+                if (!archivo) {
+                    cout << on_red << "Archivo no encontrado." << reset << endl;
+                } else {
+                    string linea;
+                    while (getline(archivo, linea)) {
+                        cout << linea << endl;
+                    }
+                    archivo.close();
+                }
+                system("pause");
+                break;
+            }
 
             case 0: {
                 cout << on_green << "\nGracias por usar el gestor de productos. Hasta pronto!" << reset << endl;

@@ -1,7 +1,10 @@
 //funcs :D
 #include <iostream>
 #include <fstream>
-#include <iomanip> 
+#include <iomanip>
+#include <algorithm> 
+#include <cctype>
+#include <string>
 
 #include "termcolor.hpp"
 #include "manager_funcs.h"
@@ -11,7 +14,6 @@ using namespace std;
 using namespace color;
 extern int total;
 extern int suma;
-
 
 void save(){
 
@@ -77,7 +79,6 @@ void load() {
     archivo.close();
     return;
 }
-
 //FUNCION AGREGAR PRODUCTO OPCION 1:
 
 void agregar_producto(int cantidad, int &indice, int &total, int &suma) {
@@ -135,20 +136,7 @@ void agregar_producto(int cantidad, int &indice, int &total, int &suma) {
     }
 }
 
-//FUNCION Eliminar 3:
-void eliminar_producto(int num) {
-    if (num < 1 || num > total) {
-        cout << on_red << "Numero invalido." << reset << endl;
-        return;
-    }
-    suma -= PRODUCTOS[num - 1].cant;
-    for (int i = num - 1; i < total - 1; i++) {
-        PRODUCTOS[i] = PRODUCTOS[i + 1];
-    }
-    total--;
-    cout << on_green << "Producto eliminado exitosamente." << reset << endl;
-    save();
-}
+//FUNCION EDITAR OPCION 2:
 void editar_producto(int op) {
     int nump, edit;
     string SN;
@@ -200,9 +188,54 @@ void editar_producto(int op) {
             }
             cout << green <<"Desea pasar al siguiente producto? " << yellow << "(S/N)" << reset;
             cin >> SN;
+            lista(total);
         } while (SN == "N" || SN == "n");
     }
+}
+//FUNCION ELIMINAR OPCION 3:
+void eliminar_producto(int num) {
+    if (num < 1 || num > total) {
+        cout << on_red << "Numero invalido." << reset << endl;
+        return;
+    }
+    suma -= PRODUCTOS[num - 1].cant;
+    for (int i = num - 1; i < total - 1; i++) {
+        PRODUCTOS[i] = PRODUCTOS[i + 1];
+    }
+    total--;
+    cout << on_green << "Producto eliminado exitosamente." << reset << endl;
+    //for (int i = 0)
     save();
+}
+//FUNCION BUSCAR POR NOMBRE OPCION 4:
+string tolower(string srt) {
+            transform(srt.begin(), srt.end(), srt.begin(), [](unsigned char c){return tolower(c); });
+            return srt;
+        }
+
+void buscar(int total) {
+        string name;
+        bool encontrar =false;
+        cin.ignore();
+        cout<< green <<"Ingrese nombre: "; 
+        getline(cin, name);
+        name = tolower(name);
+        for(int i=0;i<total;i++){
+            if(name == tolower(PRODUCTOS[i].nomb)){
+            cout<< "PRODUCTO #"<<i+1<<endl;
+            cout << "-------------------------------------------------------------\n";
+            cout << "NUM: " << i + 1
+                 << " | Nombre: " << PRODUCTOS[i].nomb
+                 << " | Precio: " << PRODUCTOS[i].precio
+                 << " | Cantidad: " << PRODUCTOS[i].cant
+                 << " | Fecha: " << PRODUCTOS[i].fecha << endl;
+            cout << "-------------------------------------------------------------\n";
+                encontrar=true;
+            }
+        }
+        if (!encontrar){
+            cout<< red << "Producto no encontrado." << endl;
+        }
 }
 
 //FUNCION LISTA OPCION 5:
@@ -227,8 +260,52 @@ void lista(int total) {
         cout <<"|"<< setw(22) <<PRODUCTOS[i].marca;
         cout <<"|"<< setw(22) <<PRODUCTOS[i].autor;
         cout <<"|"<< setw(22) <<PRODUCTOS[i].genero;
-        cout <<"|"<< setw(7) <<PRODUCTOS[i].cant<< endl;
+        cout <<"|"<< setw(7) <<PRODUCTOS[i].cant<< "  |" << endl;
     }
+}
+
+//FUNCION RESUMEN DE INVENTARIO OPCION 6:
+
+void res_inv() {
+    cout << left;
+    cout << yellow << string(50, '-') << endl;
+    cout << "PRODUCTOS DE PAPELERIA:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "PAPELERIA") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << blue << string(50, '-') << endl;
+    cout << "PRODUCTOS ELECTRONICOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "ELECTRONICOS") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << green << string(50, '-') << endl;
+    cout << "PRODUCTOS ALIMENTICIOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "ALIMENTOS") {
+        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+        << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << red << string(50, '-') << endl;
+    cout << "PRODUCTOS BIBLIOGRAFICOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "LIBROS") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << "\nTotal: " << suma << " unidades" << reset << endl;
+    system("pause");
 }
 
 //FUNCION FILTRADO POR CATEGORIA OPCION 7:
@@ -282,7 +359,6 @@ void filtrar_cat(char cat) {
     }
     system("pause");
 }
-
 //DEFINICION DE FUNCION MENU:
 
 int menu() {
@@ -298,8 +374,7 @@ int menu() {
                      << "4) Buscar producto por nombre." << endl 
                      << "5) Ver lista de productos." << endl 
                      << "6) Ver resumen del inventario" << endl 
-                     << "7) Filtrar productos por categoria o proveedor." << endl 
-                     << "8) Mostrar lista de productos." << endl 
+                     << "7) Filtrar productos por categoria." << endl 
                      << "0) Salir." << reset << endl;
         cout << on_yellow << "Seleccione una opcion:" << reset << endl;
         if (cin >> opcion) {

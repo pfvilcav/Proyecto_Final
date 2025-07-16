@@ -1,9 +1,0 @@
-Nombre: Papa peruanita
-Fecha: 15/07/2025 23:30:25
-Marca: empty
-Autor: empty
-Genero: empty
-Categoria: empty
-Precio: 0
-Cantidad: 0
-==================

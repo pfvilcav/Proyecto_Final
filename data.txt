@@ -1,0 +1,9 @@
+Nombre: charqui
+Fecha: 15/07/2025 22:05:47
+Marca: empty
+Autor: empty
+Genero: empty
+Categoria: ALIMENTOS
+Precio: 2
+Cantidad: 2
+==================

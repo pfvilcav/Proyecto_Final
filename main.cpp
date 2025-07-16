@@ -68,49 +68,7 @@ int main() {
                     system("pause");
                     break;
                 }
-                cout << left;
-                cout << yellow << string(50, '-') << endl;
-                cout << "PRODUCTOS DE PAPELERIA:" << endl;
-                cout << string(50, '-') << endl << reset;
-                for (int i = 0; i < total; i++) {
-                    if (PRODUCTOS[i].cat == "PAPELERIA") {
-                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
-                    }
-                }
-
-                cout << blue << string(50, '-') << endl;
-                cout << "PRODUCTOS ELECTRONICOS:" << endl;
-                cout << string(50, '-') << endl << reset;
-                for (int i = 0; i < total; i++) {
-                    if (PRODUCTOS[i].cat == "ELECTRONICOS") {
-                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
-                    }
-                }
-
-                cout << green << string(50, '-') << endl;
-                cout << "PRODUCTOS ALIMENTICIOS:" << endl;
-                cout << string(50, '-') << endl << reset;
-                for (int i = 0; i < total; i++) {
-                    if (PRODUCTOS[i].cat == "ALIMENTOS") {
-                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
-                    }
-                }
-
-                cout << red << string(50, '-') << endl;
-                cout << "PRODUCTOS BIBLIOGRAFICOS:" << endl;
-                cout << string(50, '-') << endl << reset;
-                for (int i = 0; i < total; i++) {
-                    if (PRODUCTOS[i].cat == "LIBROS") {
-                        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
-                             << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
-                    }
-                }
-
-                cout << "Total: " << suma << " unidades" << reset << endl;
-                system("pause");
+                res_inv();
                 break;
             }
 

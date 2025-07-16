@@ -20,6 +20,10 @@ void editar_producto(int op);
 
 void lista(int total);
 
+//DECLARACION FUNCION RESUMEN DE INVENTARIO:
+
+void res_inv();
+
 //DECLARACION FUNCION FILTRAR POR CATEGORIA:
 
 void filtrar_cat(char cat);

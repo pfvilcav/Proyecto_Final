@@ -175,6 +175,50 @@ void lista(int total) {
     }
 }
 
+//FUNCION RESUMEN DE INVENTARIO OPCION 6:
+
+void res_inv() {
+    cout << left;
+    cout << yellow << string(50, '-') << endl;
+    cout << "PRODUCTOS DE PAPELERIA:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "PAPELERIA") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << blue << string(50, '-') << endl;
+    cout << "PRODUCTOS ELECTRONICOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "ELECTRONICOS") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << green << string(50, '-') << endl;
+    cout << "PRODUCTOS ALIMENTICIOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "ALIMENTOS") {
+        cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+        << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << red << string(50, '-') << endl;
+    cout << "PRODUCTOS BIBLIOGRAFICOS:" << endl;
+    cout << string(50, '-') << endl << reset;
+    for (int i = 0; i < total; i++) {
+        if (PRODUCTOS[i].cat == "LIBROS") {
+            cout << "Nombre: " << setw(20) << PRODUCTOS[i].nomb
+            << setw(10) << PRODUCTOS[i].cant << "unidades" << endl;
+        }
+    }
+    cout << "\nTotal: " << suma << " unidades" << reset << endl;
+    system("pause");
+}
+
 //FUNCION FILTRADO POR CATEGORIA OPCION 7:
 
 void filtrar_cat(char cat) {
@@ -242,7 +286,7 @@ int menu() {
                      << "4) Buscar producto por nombre." << endl 
                      << "5) Ver lista de productos." << endl 
                      << "6) Ver resumen del inventario" << endl 
-                     << "7) Filtrar productos por categoria o proveedor." << endl 
+                     << "7) Filtrar productos por categoria." << endl 
                      << "0) Salir." << reset << endl;
         cout << on_yellow << "Seleccione una opcion:" << reset << endl;
         if (cin >> opcion) {

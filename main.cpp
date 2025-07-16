@@ -48,8 +48,16 @@ int main() {
             case 3:
                 break;
 
-            case 4:
+            case 4: {
+                string YN;
+                do {
+                    buscar(total);
+                    cout<< red << "Seguir buscando? (S/N): "; 
+                    cin>>YN;  
+                } while(YN =="s" || YN =="S");
+
                 break;
+            }
 
             case 5: {
                 if (total == 0) {

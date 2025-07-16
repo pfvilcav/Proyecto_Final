@@ -16,6 +16,10 @@ void agregar_producto(int cantidad, int &indice, int &total, int &suma);
 
 void editar_producto(int op);
 
+//DECLARACION FUNCION BUSCAR:
+
+void buscar(int total);
+
 //DECLARACION FUNCION LISTA:
 
 void lista(int total);

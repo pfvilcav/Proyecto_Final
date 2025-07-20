@@ -10,6 +10,10 @@ using namespace std;
 void save();
 void load();
 
+//DECLARACION FUNCION FECHA Y HORA:
+
+string fecha_hora();
+
 //DECLARACION FUNCION AGREGAR:
 
 void agregar_producto(int cantidad, int &indice, int &total, int &suma);

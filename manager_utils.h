@@ -29,10 +29,4 @@ struct info {
 };
 extern info PRODUCTOS[250];
 
-inline string fecha_hora() {
-    time_t t = time(nullptr);
-    char texto_fecha[30];
-    strftime(texto_fecha, sizeof(texto_fecha), "%d/%m/%Y %H:%M:%S", localtime(&t));
-    return texto_fecha;
-}
 #endif

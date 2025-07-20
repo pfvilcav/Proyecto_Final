@@ -14,7 +14,6 @@ using namespace color;
 //VARIABLES GLOBALES:
 
 info PRODUCTOS[250];
-
 int total = 0, suma = 0;
 
 int main() {

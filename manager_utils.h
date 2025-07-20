@@ -7,10 +7,20 @@
 
 using namespace std;
 
+struct electronico{
+    string marca;
+};
+
+struct libro{
+    string genero, autor;
+};
+
 struct info {
-    string nomb, fecha, marca, autor, genero, cat;
+    string nomb, fecha;
     double precio;
     int cant;
+    electronico mark;
+    libro lib;
 };
 extern info PRODUCTOS[250];
 

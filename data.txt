@@ -1,0 +1,8 @@
+Nombre: Papa peruanita
+Fecha: 19/07/2025 19:03:05
+Marca: SENATI
+Autor: empty
+Genero: empty
+Precio: 12
+Cantidad: 2
+==================

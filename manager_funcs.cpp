@@ -92,7 +92,7 @@ void agregar_producto(int cantidad, int &indice, int &total, int &suma) {
             case 'A': case 'a':
                 cout << green << "Nombre del producto:";
                 getline(cin, PRODUCTOS[indice].nomb);
-                PRODUCTOS[indice].cat.LIBROS = "LIBROS"; 
+                PRODUCTOS[indice].cat.PAPELERIA = "PAPELERIA"; 
                 break;
             case 'B': case 'b':
                 cout << green << "Nombre del producto:";

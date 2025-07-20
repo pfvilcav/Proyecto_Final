@@ -5,8 +5,10 @@
 #include <string>
 using namespace std;
 
+//DECLARACION FUNCIONES GUARDAR Y CARGAR DATOS:
+
 void save();
-int load();
+void load();
 
 //DECLARACION FUNCION AGREGAR:
 
@@ -15,6 +17,10 @@ void agregar_producto(int cantidad, int &indice, int &total, int &suma);
 //DECLARACION FUNCION EDITAR:
 
 void editar_producto(int op);
+
+//DECLARACION ELIMINAR PRODUCTO:
+
+void eliminar_producto(int num);
 
 //DECLARACION FUNCION BUSCAR:
 
